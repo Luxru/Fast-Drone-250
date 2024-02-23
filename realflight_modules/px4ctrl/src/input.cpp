@@ -18,6 +18,7 @@ RC_Data_t::RC_Data_t() {
 }
 
 void RC_Data_t::feed( mavros_msgs::RCInConstPtr pMsg ) {
+    //rc data is received
     msg       = *pMsg;
     rcv_stamp = ros::Time::now();
 
@@ -30,7 +31,7 @@ void RC_Data_t::feed( mavros_msgs::RCInConstPtr pMsg ) {
         else
             ch[ i ] = 0.0;
     }
-
+    ROS_INFO( "RC data: %f, %f, %f, %f", ch[ 0 ], ch[ 1 ], ch[ 2 ], ch[ 3 ]);
     mode       = ( ( double )msg.channels[ 4 ] - 1000.0 ) / 1000.0;
     gear       = ( ( double )msg.channels[ 5 ] - 1000.0 ) / 1000.0;
     reboot_cmd = ( ( double )msg.channels[ 7 ] - 1000.0 ) / 1000.0;
@@ -135,7 +136,7 @@ void Odom_Data_t::feed( nav_msgs::OdometryConstPtr pMsg ) {
     static ros::Time last_clear_count_time = ros::Time( 0.0 );
     if ( ( now - last_clear_count_time ).toSec() > 1.0 ) {
         if ( one_min_count < 100 ) {
-            ROS_WARN( "ODOM frequency seems lower than 100Hz, which is too low!" );
+            //ROS_WARN( "ODOM frequency seems lower than 100Hz, which is too low!" );
         }
         one_min_count         = 0;
         last_clear_count_time = now;
@@ -171,7 +172,7 @@ void Imu_Data_t::feed( sensor_msgs::ImuConstPtr pMsg ) {
     static ros::Time last_clear_count_time = ros::Time( 0.0 );
     if ( ( now - last_clear_count_time ).toSec() > 1.0 ) {
         if ( one_min_count < 100 ) {
-            ROS_WARN( "IMU frequency seems lower than 100Hz, which is too low!" );
+            //ROS_WARN( "IMU frequency seems lower than 100Hz, which is too low!" );
         }
         one_min_count         = 0;
         last_clear_count_time = now;

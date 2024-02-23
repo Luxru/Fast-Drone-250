@@ -15,7 +15,7 @@ rc_reverse: # *
     roll: false
     pitch: false
     yaw: false
-    throttle: false
+    throttle: true
 
 auto_takeoff_land:
     enable: true

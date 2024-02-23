@@ -2,6 +2,10 @@
 ## TODO
 修改状态机，剥夺px4ctrl切换offboard模式的权限
 
+比较难崩，油门对应的rcdata正常，从小到大，但是
+`hover_pose( 2 ) += rc_data.ch[ 2 ] * param.max_manual_vel * delta_t * ( param.rc_reverse.throttle ? 1 : -1 );`
+在默认情况下油门反转是false，导致杆在最低位置的时候会向上飞
+
 重新定义状态切换次序，外部切换offboard模式后 
 默认接管后进入与遥控器某三通道对应的三种模式（默认是定点，依据第一次改变后的值作为模式），使用自动起飞功能必须是处于定点时
 

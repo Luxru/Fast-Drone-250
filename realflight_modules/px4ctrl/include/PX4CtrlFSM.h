@@ -61,6 +61,14 @@ public:
 
     PX4CtrlFSM( Parameter_t&, LinearControl& );
     void    process();
+	void 	process_manual_ctrl();
+	void    process_auto_hover(Desired_State_t  &des);
+	void    process_cmd_ctrl(Desired_State_t  &des);
+	void    process_auto_takeoff(Desired_State_t  &des);
+	void    process_auto_land(Desired_State_t  &des,bool &rotor_low_speed_during_land);
+	void 	process_controller();
+	void    set_state( State_t new_state );
+
     bool    rc_is_received( const ros::Time& now_time );
     bool    cmd_is_received( const ros::Time& now_time );
     bool    odom_is_received( const ros::Time& now_time );
